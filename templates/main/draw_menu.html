@@ -1,0 +1,14 @@
+<ul class="menu d-flex flex-column gap-2">
+    {% for node in menu_tree %}
+        <li class="menu-item">
+    <a href="{{ node.item.get_absolute_url }}"
+       class="{% if node.is_active %}text-white text-decoration-underline{% elif node.is_parent and node.should_expand %}text-white{% else %}text-secondary{% endif %} text-decoration-none">
+                {{ node.item.title }}
+
+            </a>
+            {% if node.should_expand and node.children  %}
+                {% include "main/draw_menu.html" with menu_tree=node.children %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
